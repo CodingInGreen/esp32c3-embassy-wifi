@@ -1,12 +1,12 @@
 [package]
-name = "esp32c3-embassy-wifi"
-version = "0.1.0"
-authors = ["Adam Hott <24814301+CodingInGreen@users.noreply.github.com>"]
+name    = "esp32c3-embassy-wifi"
+version = "0.0.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
+publish = false
 
 [dependencies]
-esp-backtrace = { version = "0.11.0", features = [
+esp-backtrace = { version = "0.12.1", features = [
     "esp32c3",
     "exception-handler",
     "panic-handler",
@@ -46,10 +46,12 @@ embassy-executor = { version = "0.5.0", features = [
     "nightly",
     "integrated-timers",
 ] }
+esp-hal-embassy = { version = "0.1.0", optional = true}
 embassy-time       = { version = "0.3.0" }
 static_cell = { version = "2.0", features = ["nightly"] }
 embedded-io-async = { version = "0.6.1" }
 embassy-futures = "0.1.1"
+
 
 [profile.dev]
 # Rust debug is too slow. 
@@ -64,3 +66,4 @@ incremental = false
 lto = 'fat'
 opt-level = 's'
 overflow-checks = false
+
