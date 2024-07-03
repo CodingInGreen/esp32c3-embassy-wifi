@@ -16,13 +16,13 @@
 use embassy_executor::Spawner;
 use embassy_net::{tcp::TcpSocket, Config, Ipv4Address, Stack, StackResources};
 use embassy_time::{Duration, Timer};
+use esp_backtrace as _;
 use esp_hal::{
     clock::ClockControl,
     peripherals::Peripherals,
     prelude::*,
     rng::Rng,
     system::SystemControl,
-    systimer::SystemTimer,
     timer::timg::TimerGroup,
 };
 use esp_println::println;

@@ -1,0 +1,301 @@
+error[E0433]: failed to resolve: use of undeclared crate or module `esp_hal_embassy`
+  --> src/main.rs:82:5
+   |
+82 |     esp_hal_embassy::init(&clocks, timer_group0);
+   |     ^^^^^^^^^^^^^^^ use of undeclared crate or module `esp_hal_embassy`
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:47:17
+    |
+47  |           let x = STATIC_CELL.uninit().write(($val));
+    |                   ^^^^^^^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+...
+89  |       let stack = &*mk_static!(
+    |  ___________________-
+90  | |         Stack<WifiDevice<'_, WifiStaDevice>>,
+91  | |         Stack::new(
+92  | |             wifi_interface,
+...   |
+96  | |         )
+97  | |     );
+    | |_____- in this macro invocation
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+    = note: this error originates in the macro `mk_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:47:17
+    |
+47  |           let x = STATIC_CELL.uninit().write(($val));
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+...
+89  |       let stack = &*mk_static!(
+    |  ___________________-
+90  | |         Stack<WifiDevice<'_, WifiStaDevice>>,
+91  | |         Stack::new(
+92  | |             wifi_interface,
+...   |
+96  | |         )
+97  | |     );
+    | |_____- in this macro invocation
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+    = note: this error originates in the macro `mk_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `WifiDevice<'_, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:92:13
+    |
+91  |         Stack::new(
+    |         ---------- required by a bound introduced by this call
+92  |             wifi_interface,
+    |             ^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'_, WifiStaDevice>`
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack::<D>::new`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:291:9
+    |
+291 | impl<D: Driver> Stack<D> {
+    |         ^^^^^^ required by this bound in `Stack::<D>::new`
+292 |     /// Create a new network stack.
+293 |     pub fn new<const SOCK: usize>(
+    |            --- required by a bound in this associated function
+
+error[E0277]: the trait bound `WifiDevice<'_, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:91:9
+    |
+91  | /         Stack::new(
+92  | |             wifi_interface,
+93  | |             config,
+94  | |             mk_static!(StackResources<3>, StackResources::<3>::new()),
+95  | |             seed
+96  | |         )
+    | |_________^ the trait `Driver` is not implemented for `WifiDevice<'_, WifiStaDevice>`
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:100:28
+    |
+100 |     spawner.spawn(net_task(&stack)).ok();
+    |                            ^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+
+error[E0599]: the method `is_link_up` exists for reference `&Stack<WifiDevice<'static, WifiStaDevice>>`, but its trait bounds were not satisfied
+    --> src/main.rs:106:18
+     |
+106  |         if stack.is_link_up() {
+     |                  ^^^^^^^^^^ method cannot be called on `&Stack<WifiDevice<'static, WifiStaDevice>>` due to unsatisfied trait bounds
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/esp-wifi-0.6.0/src/wifi/mod.rs:1710:1
+     |
+1710 | pub struct WifiDevice<'d, MODE: WifiDeviceMode> {
+     | ----------------------------------------------- doesn't satisfy `WifiDevice<'static, WifiStaDevice>: Driver`
+     |
+     = note: the following trait bounds were not satisfied:
+             `WifiDevice<'static, WifiStaDevice>: Driver`
+
+error[E0599]: the method `config_v4` exists for reference `&Stack<WifiDevice<'static, WifiStaDevice>>`, but its trait bounds were not satisfied
+    --> src/main.rs:114:37
+     |
+114  |         if let Some(config) = stack.config_v4() {
+     |                                     ^^^^^^^^^ method cannot be called on `&Stack<WifiDevice<'static, WifiStaDevice>>` due to unsatisfied trait bounds
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/esp-wifi-0.6.0/src/wifi/mod.rs:1710:1
+     |
+1710 | pub struct WifiDevice<'d, MODE: WifiDeviceMode> {
+     | ----------------------------------------------- doesn't satisfy `WifiDevice<'static, WifiStaDevice>: Driver`
+     |
+     = note: the following trait bounds were not satisfied:
+             `WifiDevice<'static, WifiStaDevice>: Driver`
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:124:41
+    |
+124 |         let mut socket = TcpSocket::new(&stack, &mut rx_buffer, &mut tx_buffer);
+    |                          -------------- ^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+    |                          |
+    |                          required by a bound introduced by this call
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `TcpSocket::<'a>::new`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/tcp.rs:139:19
+    |
+139 |     pub fn new<D: Driver>(stack: &'a Stack<D>, rx_buffer: &'a mut [u8], tx_buffer: &'a mut [u8]) -> Self {
+    |                   ^^^^^^ required by this bound in `TcpSocket::<'a>::new`
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:45:29
+    |
+45  |           static STATIC_CELL: static_cell::StaticCell<$t> = static_cell::StaticCell::new();
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+...
+89  |       let stack = &*mk_static!(
+    |  ___________________-
+90  | |         Stack<WifiDevice<'_, WifiStaDevice>>,
+91  | |         Stack::new(
+92  | |             wifi_interface,
+...   |
+96  | |         )
+97  | |     );
+    | |_____- in this macro invocation
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+    = note: this error originates in the macro `mk_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:45:59
+    |
+45  |           static STATIC_CELL: static_cell::StaticCell<$t> = static_cell::StaticCell::new();
+    |                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+...
+89  |       let stack = &*mk_static!(
+    |  ___________________-
+90  | |         Stack<WifiDevice<'_, WifiStaDevice>>,
+91  | |         Stack::new(
+92  | |             wifi_interface,
+...   |
+96  | |         )
+97  | |     );
+    | |_____- in this macro invocation
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+    = note: this error originates in the macro `mk_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:45:59
+    |
+45  |           static STATIC_CELL: static_cell::StaticCell<$t> = static_cell::StaticCell::new();
+    |                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+...
+89  |       let stack = &*mk_static!(
+    |  ___________________-
+90  | |         Stack<WifiDevice<'_, WifiStaDevice>>,
+91  | |         Stack::new(
+92  | |             wifi_interface,
+...   |
+96  | |         )
+97  | |     );
+    | |_____- in this macro invocation
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+    = note: this error originates in the macro `mk_static` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0599]: no method named `wait_for_event` found for struct `WifiController` in the current scope
+   --> src/main.rs:171:28
+    |
+171 |                 controller.wait_for_event(WifiEvent::StaDisconnected).await;
+    |                            ^^^^^^^^^^^^^^ method not found in `WifiController<'_>`
+
+error[E0277]: `Result<(), esp_wifi::wifi::WifiError>` is not a future
+   --> src/main.rs:184:32
+    |
+184 |             controller.start().await.unwrap();
+    |                               -^^^^^
+    |                               ||
+    |                               |`Result<(), esp_wifi::wifi::WifiError>` is not a future
+    |                               help: remove the `.await`
+    |
+    = help: the trait `Future` is not implemented for `Result<(), esp_wifi::wifi::WifiError>`, which is required by `Result<(), esp_wifi::wifi::WifiError>: IntoFuture`
+    = note: Result<(), esp_wifi::wifi::WifiError> must be a future or must implement `IntoFuture` to be awaited
+    = note: required for `Result<(), esp_wifi::wifi::WifiError>` to implement `IntoFuture`
+
+error[E0277]: `Result<(), esp_wifi::wifi::WifiError>` is not a future
+   --> src/main.rs:189:36
+    |
+189 |         match controller.connect().await {
+    |                                   -^^^^^
+    |                                   ||
+    |                                   |`Result<(), esp_wifi::wifi::WifiError>` is not a future
+    |                                   help: remove the `.await`
+    |
+    = help: the trait `Future` is not implemented for `Result<(), esp_wifi::wifi::WifiError>`, which is required by `Result<(), esp_wifi::wifi::WifiError>: IntoFuture`
+    = note: Result<(), esp_wifi::wifi::WifiError> must be a future or must implement `IntoFuture` to be awaited
+    = note: required for `Result<(), esp_wifi::wifi::WifiError>` to implement `IntoFuture`
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:200:26
+    |
+200 | async fn net_task(stack: &'static Stack<WifiDevice<'static, WifiStaDevice>>) {
+    |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+
+error[E0599]: the method `run` exists for reference `&Stack<WifiDevice<'static, WifiStaDevice>>`, but its trait bounds were not satisfied
+    --> src/main.rs:201:11
+     |
+201  |     stack.run().await
+     |           ^^^ method cannot be called on `&Stack<WifiDevice<'static, WifiStaDevice>>` due to unsatisfied trait bounds
+     |
+    ::: /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/esp-wifi-0.6.0/src/wifi/mod.rs:1710:1
+     |
+1710 | pub struct WifiDevice<'d, MODE: WifiDeviceMode> {
+     | ----------------------------------------------- doesn't satisfy `WifiDevice<'static, WifiStaDevice>: Driver`
+     |
+     = note: the following trait bounds were not satisfied:
+             `WifiDevice<'static, WifiStaDevice>: Driver`
+
+error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
+   --> src/main.rs:200:19
+    |
+200 | async fn net_task(stack: &'static Stack<WifiDevice<'static, WifiStaDevice>>) {
+    |                   ^^^^^ the trait `Driver` is not implemented for `WifiDevice<'static, WifiStaDevice>`
+    |
+    = help: the trait `Driver` is implemented for `&mut T`
+note: required by a bound in `Stack`
+   --> /Users/hott/.cargo/registry/src/index.crates.io-6f17d22bba15001f/embassy-net-0.4.0/src/lib.rs:241:21
+    |
+241 | pub struct Stack<D: Driver> {
+    |                     ^^^^^^ required by this bound in `Stack`
+
+error[E0282]: type annotations needed
+  --> src/main.rs:55:1
+   |
+55 | #[main]
+   | ^^^^^^^ cannot infer type
+   |
+   = note: this error originates in the attribute macro `main` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0277, E0282, E0433, E0599.
+For more information about an error, try `rustc --explain E0277`.
+error: could not compile `esp32c3-embassy-wifi` (bin "esp32c3-embassy-wifi") due to 21 previous errors
