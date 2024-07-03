@@ -6,28 +6,18 @@ use embassy_net::{tcp::TcpSocket, Config, Ipv4Address, Stack, StackResources};
 use embassy_time::{Duration, Timer};
 use esp_backtrace as _;
 use esp_hal::{
-    clock::ClockControl,
-    peripherals::Peripherals,
-    prelude::*,
-    rng::Rng,
-    system::SystemControl,
+    clock::ClockControl, peripherals::Peripherals, prelude::*, rng::Rng, system::SystemControl,
     timer::timg::TimerGroup,
 };
 use esp_println::println;
 use esp_wifi::{
     initialize,
     wifi::{
-        ClientConfiguration,
-        Configuration,
-        WifiController,
-        WifiDevice,
-        WifiEvent,
-        WifiStaDevice,
+        ClientConfiguration, Configuration, WifiController, WifiDevice, WifiEvent, WifiStaDevice,
         WifiState,
     },
     EspWifiInitFor,
 };
-
 
 macro_rules! mk_static {
     ($t:path,$val:expr) => {{
