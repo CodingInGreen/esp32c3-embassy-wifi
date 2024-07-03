@@ -1,9 +1,13 @@
-error[E0433]: failed to resolve: use of undeclared crate or module `esp_hal_embassy`
-  --> src/main.rs:82:5
-   |
-82 |     esp_hal_embassy::init(&clocks, timer_group0);
-   |     ^^^^^^^^^^^^^^^ use of undeclared crate or module `esp_hal_embassy`
+cargo build
 
+
+WARNING: use --release
+  We *strongly* recommend using release profile when building esp-hal.
+  The dev profile can potentially be one or more orders of magnitude
+  slower than release, and may cause issues with timing-senstive
+  peripherals and/or devices.
+
+   Compiling esp32c3-embassy-wifi v0.0.0 (/Users/hott/eng/esp32c3-embassy-wifi)
 error[E0277]: the trait bound `WifiDevice<'static, WifiStaDevice>: Driver` is not satisfied
    --> src/main.rs:47:17
     |
@@ -288,14 +292,6 @@ note: required by a bound in `Stack`
 241 | pub struct Stack<D: Driver> {
     |                     ^^^^^^ required by this bound in `Stack`
 
-error[E0282]: type annotations needed
-  --> src/main.rs:55:1
-   |
-55 | #[main]
-   | ^^^^^^^ cannot infer type
-   |
-   = note: this error originates in the attribute macro `main` (in Nightly builds, run with -Z macro-backtrace for more info)
-
-Some errors have detailed explanations: E0277, E0282, E0433, E0599.
+Some errors have detailed explanations: E0277, E0599.
 For more information about an error, try `rustc --explain E0277`.
-error: could not compile `esp32c3-embassy-wifi` (bin "esp32c3-embassy-wifi") due to 21 previous errors
+error: could not compile `esp32c3-embassy-wifi` (bin "esp32c3-embassy-wifi") due to 18 previous errors
